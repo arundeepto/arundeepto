@@ -8,30 +8,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body { background-color: #f0f4f8; font-family: 'Segoe UI', sans-serif; }
-        .hero { background: linear-gradient(135deg, #005c97, #363795); color: white; padding: 50px 0; border-radius: 0 0 50px 50px; margin-bottom: 30px; }
+        .hero { background: linear-gradient(135deg, #005c97, #363795); color: white; padding: 40px 0; border-radius: 0 0 50px 50px; margin-bottom: 30px; }
         .student-card { border-radius: 15px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
         .student-card:hover { transform: translateY(-5px); }
         .info-item { font-size: 0.85rem; margin-bottom: 5px; color: #555; }
+        .admin-section { background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
-<div id="loginSection" class="container text-center mt-5">
-    <h3>Enter Secret Code</h3>
-    <input type="password" id="passInput" class="form-control w-50 mx-auto mb-2" placeholder="Enter Secret Code">
-    <button onclick="checkPassword()" class="btn btn-primary">Submit</button>
+<div class="hero text-center">
+    <h1>অরুণদীপ্ত (ARUNDEEPTO)</h1>
+    <p class="lead">8th Batch, Nilphamari Medical College</p>
 </div>
 
-<div id="mainContent" style="display: none;">
-    <div class="hero text-center">
-        <h1>অরুণদীপ্ত (ARUNDEEPTO)</h1>
-        <p class="lead">8th Batch, Nilphamari Medical College</p>
+<div class="container pb-5">
+    <!-- Admin Section (Moved to Top) -->
+    <div class="admin-section text-center w-75 mx-auto">
+        <h6 class="text-muted">CR Access Only</h6>
+        <div class="d-flex justify-content-center">
+            <input type="password" id="adminPass" class="form-control w-50 me-2" placeholder="Enter CR Code">
+            <button onclick="adminLogin()" class="btn btn-warning btn-sm">Login</button>
+        </div>
     </div>
 
-    <div class="container pb-5">
-        <input type="text" id="searchInput" class="form-control mb-4 shadow-sm" placeholder="Search by Name or Roll">
-        <div class="row" id="studentContainer"></div>
-    </div>
+    <input type="text" id="searchInput" class="form-control mb-4 shadow-sm" placeholder="Search by Name or Roll">
+    <div class="row" id="studentContainer"></div>
 </div>
 
 <script>
@@ -112,26 +114,63 @@
     ];
 
 
-    function checkPassword() {
-        const code = document.getElementById('passInput').value;
-        const secretCode = "n88888888"; // সাধারণ কোড
-        const crCode = "cr88888888";  // সিআর কোড
+    window.onload = () => {
+        // নতুন করে ভিজিট করলে লগইন অফ থাকবে
+        localStorage.setItem('accessLevel', 'hidden');
+        renderStudents();
+    };
 
-        if (code === secretCode) {
-            localStorage.setItem('accessLevel', 'hidden');
-            showContent();
-        } else if (code === crCode) {
+    function adminLogin() {
+        const pass = document.getElementById('adminPass').value;
+        if (pass === "cr6662") {
             localStorage.setItem('accessLevel', 'visible');
-            showContent();
+            alert("Admin Access Granted!");
+            renderStudents();
         } else {
-            alert("This is not for you");
+            alert("Wrong Code!");
         }
     }
 
-    function showContent() {
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-        renderStudents();
+    function renderStudents(filter = "") {
+        const container = document.getElementById('studentContainer');
+        const accessLevel = localStorage.getItem('accessLevel');
+        container.innerHTML = "";
+        
+        const filtered = students.filter(s => 
+            s.name.toLowerCase().includes(filter.toLowerCase()) || 
+            s.roll.toString().includes(filter)
+        );
+
+        filtered.forEach(s => {
+            let displayMobile = s.mobile ? s.mobile.substring(0, 5) + "********" : "N/A";
+            if (accessLevel === 'visible' && s.mobile) {
+                displayMobile = s.mobile;
+            }
+
+            container.innerHTML += `
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card student-card h-100">
+                        <div class="p-3">
+                            <div class="d-flex justify-content-between">
+                                <span class="badge bg-primary">Roll: ${s.roll}</span>
+                                ${s.bloodGroup ? `<span class="badge bg-danger"><i class="fas fa-tint"></i> ${s.bloodGroup}</span>` : ''}
+                            </div>
+                            <h5 class="card-title text-primary mt-2">${s.name}</h5>
+                            <hr>
+                            <div class="info-item"><i class="fas fa-phone-alt me-2"></i> ${displayMobile}</div>
+                            <div class="info-item"><i class="fas fa-map-marker-alt me-2"></i> ${s.district || "N/A"}</div>
+                            <div class="info-item"><i class="fas fa-school me-2"></i> ${s.exCollege || "N/A"}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => renderStudents(e.target.value));
+</script>
+</body>
+</html>
     }
 
     const container = document.getElementById('studentContainer');
