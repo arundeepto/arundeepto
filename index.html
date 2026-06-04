@@ -91,7 +91,7 @@
         { roll: 51, name: "Shemonty Islam Sushoma", mobile: "01880321964", hscBatch: "25", bloodGroup: "A+", district: "Rangpur", address: "Babukha, Rangpur", exCollege: "Rangpur Government College, Rangpur" },
         { roll: 52, name: "Nazmun Nahar", mobile: "01581185111", hscBatch: "24", bloodGroup: "B+", district: "Bogura", address: "Thengamara Uttarpara, Bogura Sadar, Bogura", exCollege: "Govt. Azizul Haque College, Bogura" },
         { roll: 53, name: "Tasnim Ara Shreyosee", mobile: "01305791264", hscBatch: "24", bloodGroup: "O+", district: "Rangpur", address: "Baluavata, Badarganj, Rangpur", exCollege: "Badarganj Govt. College" },
-        { roll: 54, name: "Md. Abdur Rokib Ahmed Rakib", mobile: "01723683819", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
+        { roll: 54, name: "Md. Abdur Rokib Ahmed Rak", mobile: "01723683819", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
         { roll: 55, name: "M. A. Mostakim", mobile: "01706709522", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
         { roll: 56, name: "Aysa Khatun", mobile: "01757784031", hscBatch: "24", bloodGroup: "O+", district: "Dinajpur", address: "Nashipur, Sadar, Dinajpur", exCollege: "Nashipur Dwimukhi High School and College" },
         { roll: 57, name: "Suparna Das", mobile: "01898915485", hscBatch: "25", bloodGroup: "B+", district: "Chattogram", address: "Aturar dokhan, chawkbazar, Chattogram", exCollege: "Govt. Hazi Muhammad Mohsin College" },
@@ -103,7 +103,7 @@
         { roll: 63, name: "Maisha Kashfia Zaman", mobile: "01796125690", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
         { roll: 64, name: "Shaoma Siddik Akhi", mobile: "01778914733", hscBatch: "25", bloodGroup: "B+", district: "Rangpur", address: "Dhap, Lalkuthir more, Rangpur", exCollege: "Cantonment Public School and College, Rangpur" },
         { roll: 65, name: "Sanchita Roy Diya", mobile: "01740826096", hscBatch: "25", bloodGroup: "AB+", district: "Thakurgaon", address: "Jomidarpara, Thakurgaon sadar, Thakurgaon", exCollege: "Rajshahi College" },
-        { roll: 66, name: "Shah Munaf Wasif Siddique Anando", mobile: "01752917840", hscBatch: "25", bloodGroup: "A+", district: "Lalmonirhat", address: "206, Siddique Mansion, Station Para, Patgram, Lalmonirhat", exCollege: "Rangpur Govt College" },
+        { roll: 66, name: "Shah Munaf Wasif Siddique Anando", mobile: "01752917840", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
         { roll: 67, name: "Morsalina Nupur", mobile: "01722742405", hscBatch: "24", bloodGroup: "A+", district: "Dinajpur", address: "Chirirbandar, Dinajpur", exCollege: "Dinajpur govt women's college, Dinajpur" },
         { roll: 68, name: "Ayesha Shiddika", mobile: "01722742405", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
         { roll: 69, name: "Tasnim Jahan Maria", mobile: "01605697658", hscBatch: "", bloodGroup: "", district: "", address: "", exCollege: "" },
@@ -157,12 +157,9 @@
                             </div>
                             <h5 class="card-title text-primary mt-2">${s.name}</h5>
                             <hr>
-                            <div class="small">
-                                <div><i class="fas fa-phone"></i> ${displayMobile}</div>
-                                <div><i class="fas fa-map-marker-alt"></i> ${s.district}</div>
-                                <div><i class="fas fa-home"></i> ${s.address}</div>
-                                <div><i class="fas fa-school"></i> ${s.exCollege}</div>
-                            </div>
+                            <div class="info-item"><i class="fas fa-phone-alt me-2"></i> ${displayMobile}</div>
+                            <div class="info-item"><i class="fas fa-map-marker-alt me-2"></i> ${s.district || "N/A"}</div>
+                            <div class="info-item"><i class="fas fa-school me-2"></i> ${s.exCollege || "N/A"}</div>
                         </div>
                     </div>
                 </div>
@@ -171,52 +168,6 @@
     }
 
     document.getElementById('searchInput').addEventListener('input', (e) => renderStudents(e.target.value));
-    }
-
-    const container = document.getElementById('studentContainer');
-    const searchInput = document.getElementById('searchInput');
-
-    function renderStudents(filter = "") {
-        container.innerHTML = "";
-        const accessLevel = localStorage.getItem('accessLevel');
-        
-        const filtered = students.filter(s => 
-            s.name.toLowerCase().includes(filter.toLowerCase()) || 
-            s.roll.toString().includes(filter)
-        );
-
-        filtered.forEach(s => {
-            let displayMobile = "N/A";
-            if (s.mobile) {
-                if (accessLevel === 'visible') {
-                    displayMobile = s.mobile;
-                } else {
-                    displayMobile = s.mobile.substring(0, 5) + "********";
-                }
-            }
-
-            container.innerHTML += `
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card student-card h-100">
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
-                                <span class="badge bg-primary mb-2">Roll: ${s.roll}</span>
-                                ${s.bloodGroup ? `<span class="badge bg-danger mb-2"><i class="fas fa-tint"></i> ${s.bloodGroup}</span>` : ''}
-                            </div>
-                            <h5 class="card-title text-primary">${s.name || "N/A"}</h5>
-                            <hr>
-                            <div class="info-item"><i class="fas fa-phone-alt me-2 text-secondary"></i> ${displayMobile}</div>
-                            <div class="info-item"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> ${s.district || "N/A"}</div>
-                            <div class="info-item"><i class="fas fa-school me-2 text-secondary"></i> ${s.exCollege || "N/A"}</div>
-                            <div class="info-item"><i class="fas fa-home me-2 text-secondary"></i> ${s.address || "N/A"}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    searchInput.addEventListener('input', (e) => renderStudents(e.target.value));
 </script>
 </body>
 </html>
