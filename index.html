@@ -157,9 +157,12 @@
                             </div>
                             <h5 class="card-title text-primary mt-2">${s.name}</h5>
                             <hr>
-                            <div class="info-item"><i class="fas fa-phone-alt me-2"></i> ${displayMobile}</div>
-                            <div class="info-item"><i class="fas fa-map-marker-alt me-2"></i> ${s.district || "N/A"}</div>
-                            <div class="info-item"><i class="fas fa-school me-2"></i> ${s.exCollege || "N/A"}</div>
+                            <div class="small">
+                                <div><i class="fas fa-phone"></i> ${displayMobile}</div>
+                                <div><i class="fas fa-map-marker-alt"></i> ${s.district}</div>
+                                <div><i class="fas fa-home"></i> ${s.address}</div>
+                                <div><i class="fas fa-school"></i> ${s.exCollege}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
