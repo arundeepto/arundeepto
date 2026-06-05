@@ -1,44 +1,58 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArunDeepto - 8th Batch</title>
+    <title>ArunDeepto | Batch 08 | NMC</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { background-color: #f0f4f8; font-family: 'Segoe UI', sans-serif; }
-        .hero { background: linear-gradient(135deg, #005c97, #363795); color: white; padding: 40px 0; border-radius: 0 0 50px 50px; margin-bottom: 30px; }
-        .student-card { border-radius: 15px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; }
-        .student-card:hover { transform: translateY(-5px); }
-        .info-item { font-size: 0.85rem; margin-bottom: 5px; color: #555; }
-        .admin-section { background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; border: 1px solid #ddd; }
+        :root { --primary: #0f4c75; --accent: #ffcc00; }
+        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; }
+        .hero { background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%); color: white; padding: 60px 0; border-radius: 0 0 40px 40px; }
+        .student-card { background: white; border-radius: 20px; border: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .student-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .btn-custom { background: var(--accent); font-weight: 600; border: none; }
+        .search-box { border-radius: 50px; padding: 15px 25px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
 
 <div class="hero text-center">
-    <h1>অরুণদীপ্ত (ARUNDEEPTO)</h1>
-    <p class="lead">8th Batch, Nilphamari Medical College</p>
+    <div class="container">
+        <h1 class="fw-bold">ArunDeepto</h1>
+        <p class="lead">Nilphamari Medical College | 8th Batch</p>
+    </div>
 </div>
 
-<div class="container pb-5">
-    <!-- Admin Section (Moved to Top) -->
-    <div class="admin-section text-center w-75 mx-auto">
-        <h6 class="text-muted">CR Access Only</h6>
-        <div class="d-flex justify-content-center">
-            <input type="password" id="adminPass" class="form-control w-50 me-2" placeholder="Enter CR Code">
-            <button onclick="adminLogin()" class="btn btn-warning btn-sm">Login</button>
+<div class="container mt-n5 pb-5" style="margin-top: -30px;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="input-group shadow-sm rounded-pill bg-white mb-3">
+                <input type="text" id="searchInput" class="form-control search-box" placeholder="🔍 Search by name or roll...">
+            </div>
+            <div class="d-flex justify-content-end mb-4">
+                <button id="loginBtn" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#adminModal">CR Login</button>
+            </div>
         </div>
     </div>
-
-    <input type="text" id="searchInput" class="form-control mb-4 shadow-sm" placeholder="Search by Name or Roll">
     <div class="row" id="studentContainer"></div>
 </div>
-<footer class="text-center">
-    <p>&copy; 2026 ArunDeepto - 8th Batch</p>
-    <p>Developed by <strong>Munaf Wasif</strong></p>
-</footer>
+
+<!-- Login Modal -->
+<div class="modal fade" id="adminModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input type="password" id="adminPass" class="form-control mb-2" placeholder="Enter CR Code">
+                <button onclick="adminLogin()" class="btn btn-custom w-100" data-bs-dismiss="modal">Verify</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const students = [
   { roll: 1, name: "MD. KAWSER AZAM", gender: "M", mobile: "01839580475", hscBatch: "24", bloodGroup: "B+", district: "Rangpur", address: "mohismuri, pirgachha, rangpur", exCollege: "Gaibandha govt college" },
@@ -99,7 +113,7 @@
   { roll: 63, name: "MAISHA KASHFIA ZAMAN", gender: "F", mobile: "01796125690", hscBatch: "25", bloodGroup: "O+", district: "Lalmonirhat", address: "Hatbandha, Lalmonirhat", exCollege: "Alimuddin gov. college,Hatibandha" },
   { roll: 64, name: "SHAOMA SIDDIK AKHI", gender: "F", mobile: "01778914733", hscBatch: "25", bloodGroup: "B+", district: "Rangpur", address: "Dhap,Lalkuthir more,Rangpur", exCollege: "Cantonment Public School and College,Rangpur" },
   { roll: 65, name: "SANCHITA ROY DIYA", gender: "F", mobile: "01740826096", hscBatch: "25", bloodGroup: "AB+", district: "Thakurgaon", address: "Jomidarpara, Thakurgaon sadar,Thakurgaon", exCollege: "Rajshahi College" },
-  { roll: 66, name: "SHAH MUNAF WASIF SIDDIQUE ANANI", gender: "M", mobile: "01572917840", hscBatch: "25", bloodGroup: "AB+", district: "", address: "", exCollege: "" },
+  { roll: 66, name: "SHAH MUNAF WASIF SIDDIQUE ANANDO", gender: "M", mobile: "01572917840", hscBatch: "25", bloodGroup: "AB+", district: "Lalmonirhat", address: "206, Station Para, Patgram, Lalmonirhat 5540", exCollege: "Rangpur Govt College" },
   { roll: 67, name: "MORSALINA NUPUR", gender: "F", mobile: "01722742405", hscBatch: "24", bloodGroup: "A+", district: "Dinajpur", address: "chirirbandar, Dinajpur", exCollege: "Dinajpur govt women's college, Dinajpur" },
   { roll: 68, name: "AYESHA SHIDDIKA", gender: "F", mobile: "01304613778", hscBatch: "25", bloodGroup: "O+", district: "", address: "", exCollege: "" },
   { roll: 69, name: "TASNIM JAHAN MARIA", gender: "F", mobile: "01605697658", hscBatch: "25", bloodGroup: "O+", district: "", address: "", exCollege: "" },
@@ -111,61 +125,56 @@
 ];
 
 
-    window.onload = () => {
-    
-        localStorage.setItem('accessLevel', 'hidden');
-        renderStudents();
-    };
-
-    function adminLogin() {
-        const pass = document.getElementById('adminPass').value;
-        if (pass === "cr6662") {
-            localStorage.setItem('accessLevel', 'visible');
-            alert("Admin Access Granted!");
-            renderStudents();
-        } else {
-            alert("Wrong Code!");
-        }
-    }
-
     function renderStudents(filter = "") {
         const container = document.getElementById('studentContainer');
-        const accessLevel = localStorage.getItem('accessLevel');
+        const access = localStorage.getItem('accessLevel');
         container.innerHTML = "";
         
-        const filtered = students.filter(s => 
-            s.name.toLowerCase().includes(filter.toLowerCase()) || 
-            s.roll.toString().includes(filter)
-        );
-
-        filtered.forEach(s => {
-            let displayMobile = s.mobile ? s.mobile.substring(0, 5) + "********" : "N/A";
-            if (accessLevel === 'visible' && s.mobile) {
-                displayMobile = s.mobile;
-            }
-
+        students.filter(s => s.name.toLowerCase().includes(filter.toLowerCase())).forEach(s => {
+            const isCR = (access === 'verified');
+            // মোবাইল নাম্বারের প্রথম ৫ ডিজিট দেখাবে, বাকিটা CR লগইন ছাড়া হাইড থাকবে
+            const displayPhone = isCR ? s.mobile : s.mobile.substring(0, 5) + "XXXXXX";
+            
             container.innerHTML += `
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card student-card h-100">
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
-                                <span class="badge bg-primary">Roll: ${s.roll}</span>
-                                ${s.bloodGroup ? `<span class="badge bg-danger"><i class="fas fa-tint"></i> ${s.bloodGroup}</span>` : ''}
-                            </div>
-                            <h5 class="card-title text-primary mt-2">${s.name}</h5>
-                            <hr>
-                            <div class="info-item"><i class="fas fa-phone-alt me-2"></i> ${displayMobile}</div>
-                            <div class="info-item"><i class="fas fa-map-marker-alt me-2"></i> ${s.district || "N/A"}</div>
-                            <div class="info-item"><i class="fas fa-school me-2"></i> ${s.exCollege || "N/A"}</div>
-                            <div class="info-item"><i class="fas fa-home me-2 text-secondary"></i> ${s.address || "N/A"}</div>
+                    <div class="card student-card h-100 p-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge bg-primary">Roll: ${s.roll}</span>
+                            <span class="badge bg-danger">${s.bloodGroup}</span>
                         </div>
+                        <h5 class="fw-bold mb-3">${s.name}</h5>
+                        <p class="mb-1 small"><i class="fas fa-calendar-alt me-2 text-secondary"></i><b>HSC Batch:</b> ${s.hscBatch}</p>
+                        <p class="mb-1 small"><i class="fas fa-phone me-2 text-primary"></i><b>Phone:</b> ${displayPhone}</p>
+                        <p class="mb-1 small"><i class="fas fa-map-marker-alt me-2 text-danger"></i><b>Address:</b> ${s.address}</p>
+                        <p class="small text-muted mt-2"><i class="fas fa-graduation-cap me-2"></i>${s.exCollege}</p>
                     </div>
                 </div>
             `;
         });
     }
 
+    function adminLogin() {
+        const pass = document.getElementById('adminPass').value;
+        if (pass === "cr6662") {
+            localStorage.setItem('accessLevel', 'verified');
+            document.getElementById('loginBtn').innerText = "CR Logged In";
+            renderStudents();
+        } else {
+            alert("Wrong Code!");
+        }
+    }
+
+    // পেজ লোড হওয়ার সময় লগইন চেক করা
+    window.onload = () => {
+        if(localStorage.getItem('accessLevel') === 'verified') {
+            document.getElementById('loginBtn').innerText = "CR Logged In";
+        }
+        renderStudents();
+    };
+
     document.getElementById('searchInput').addEventListener('input', (e) => renderStudents(e.target.value));
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
